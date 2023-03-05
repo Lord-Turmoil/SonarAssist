@@ -15,7 +15,9 @@ namespace SonarAssist.Common
 
 		public static void Log(string message, ConsoleColor color = ConsoleColor.White)
 		{
-			Console.WriteLine(message, color);
+			var old = Console.ForegroundColor;
+			Console.WriteLine(message);
+			Console.ForegroundColor = old;
 		}
 
 		public static void LogError(string message)
