@@ -1,5 +1,4 @@
-﻿using dotnetCampus.Configurations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,26 +7,33 @@ using System.Threading.Tasks;
 
 namespace SonarAssist.Common.Config
 {
-	internal class GlobalConfiguration : Configuration
+	public class GlobalConfiguration : IConfiguration
 	{
 		/// <summary>
 		/// SonarQube server url, must contain protocol (http:// or https://)
 		/// and port (:9000 or else).
 		/// </summary>
-		internal string? Server { get; set; }
+		public string Server { get; set; } = "";
 
 		/// <summary>
 		/// SonarQube token, must have administrative permission.
 		/// </summary>
-		internal string? Token { get; set; }
+		public string Token { get; set; } = "";
 
 		/// <summary>
 		/// SonarQube quality profile. Has default value.
 		/// </summary>
-		internal string Profile
+		private string _profile = Constants.DEFAULT_PROFILE;
+		public string Profile
 		{
-			get => GetString() ?? Constants.DEFAULT_PROFILE;
-			set => SetValue(Equals(value, Constants.DEFAULT_PROFILE) ? null : value);
+			get { return _profile; }
+			set
+			{
+				if (!string.IsNullOrEmpty(value))
+				{
+					_profile = value;
+				}
+			}
 		}
 	}
 }

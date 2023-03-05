@@ -1,6 +1,5 @@
-﻿using dotnetCampus.Configurations;
-using dotnetCampus.Configurations.Core;
-using DryIoc;
+﻿using DryIoc;
+using Newtonsoft.Json;
 using SonarAssist.Common;
 using SonarAssist.Common.Config;
 using System;
@@ -15,45 +14,41 @@ namespace SonarAssistTest.Common.Config
 	public class GlobalConfigurationTest
 	{
 		[TestMethod]
-		public void LoadAndSave()
+		public void Load()
 		{
-			_InitConfig();
+			Shared.InitConfig();
 
-			var config = Global.Container.Resolve<IAppConfigurator>()
-				.Of<GlobalConfiguration>();
+			var config = Global.Container.Resolve<GlobalConfiguration>();
+
+			// This is set in property file.
+			// Assert.AreEqual(Constants.DEFAULT_SERVER, config.Server, "Wrong default value");
+			
+			// Properties that doesn't have default value is empty string
+			Assert.AreEqual("", config.Token, "Wrong token");
 
 			// Profile has default value.
 			Assert.AreEqual(Constants.DEFAULT_PROFILE, config.Profile, "Wrong profile");
+		}
 
-			// Properties that doesn't have default value is null.
-			Assert.IsNull(config.Server, "Wrong default value");
+		[TestMethod]
+		public void Save()
+		{
+			Shared.InitConfig();
 
-			config.Server = Constants.DEFAULT_SERVER;
-			Assert.AreEqual(Constants.DEFAULT_SERVER, config.Server, "Wrong server");
+			var config = Global.Container.Resolve<GlobalConfiguration>();
 
-			config.Profile = "Profile";
-			Assert.AreEqual("Profile", config.Profile, "Wrong profile");
-
-			Global.Container.Resolve<IAppConfigurator>()
+			config.Token = "token";
+			ConfigManager.Save(config, @"config\config.json");
 		}
 
 		[TestMethod]
 		public void Reload()
 		{
-			_InitConfig();
+			Shared.InitConfig();
 
-			var config = Global.Container.Resolve<IAppConfigurator>()
-				.Of<GlobalConfiguration>();
+			var config = Global.Container.Resolve<GlobalConfiguration>();
 
-			Assert.AreEqual(Constants.DEFAULT_SERVER, config.Server, "Wrong server");
-			Assert.AreEqual("Profile", config.Profile, "Wrong profile");
-		}
-
-		private void _InitConfig()
-		{
-			var configFilename = @"config\config.coin";
-			var config = ConfigurationFactory.FromFile(configFilename);
-			Global.Container.RegisterInstance(config.CreateAppConfigurator());
+			Assert.AreEqual("token", config.Token, "Wrong token");
 		}
 	}
 }
