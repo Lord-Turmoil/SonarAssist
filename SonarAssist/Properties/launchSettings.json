@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SonarAssist": {
+      "commandName": "Project",
+      "workingDirectory": "E:\\Program\\Projects\\Analyzer\\SonarAssist\\SonarAssist\\Work"
+    }
+  }
+}
