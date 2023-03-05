@@ -19,7 +19,6 @@ public class Program
 
 	private static int Execute(string? args)
 	{
-
 		Process? process = Process.Start(new ProcessStartInfo()
 		{
 			FileName = "cmd.exe",
