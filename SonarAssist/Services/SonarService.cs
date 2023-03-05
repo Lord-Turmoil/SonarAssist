@@ -47,5 +47,12 @@ namespace SonarAssist.Services
 				}
 			}
 		}
+
+		protected void _HandleUncaughtError(Exception ex)
+		{
+			Logger.LogError("Uncaught error");
+			Logger.LogError(ex.ToString());
+			Status = ServiceStatus.Error;
+		}
 	}
 }

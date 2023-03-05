@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using SonarAssist.Common;
 using SonarAssist.Common.Config;
+using SonarAssist.Common.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,12 @@ namespace SonarAssist.Services.Impl
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
 
+			if (!_CheckPrerequisites())
+			{
+				Status = ServiceStatus.Error;
+				throw new ServiceErrorException($"\"{_root}\" is not a Java project");
+			}
+
 			_InitConfig();
 			_UpdateConfig(parameters);
 
@@ -50,6 +57,11 @@ namespace SonarAssist.Services.Impl
 			Status = ServiceStatus.OK;
 
 			await Task.Run(() => { });
+		}
+
+		private bool _CheckPrerequisites()
+		{
+			return Directory.Exists(Path.GetFullPath(Constants.LOCAL_SRC_PATH));
 		}
 
 		private bool _ParseParameters(Dictionary<string, string> parameters)

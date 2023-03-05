@@ -15,8 +15,8 @@ namespace SonarAssist.Services.Requests.Impl
 	/// </summary>
 	public class UpdateProjectRequest : SonarRequest
 	{
-        public UpdateProjectRequest()
-        {
+		public UpdateProjectRequest()
+		{
 			Method = RestSharp.Method.Post;
 			Route = @"api/qualityprofiles/add_project";
 
@@ -25,5 +25,5 @@ namespace SonarAssist.Services.Requests.Impl
 			AddParameter("language", "java");
 			AddParameter("qualityProfile", config.Profile);
 		}
-    }
+	}
 }

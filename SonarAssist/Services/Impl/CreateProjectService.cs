@@ -58,8 +58,7 @@ namespace SonarAssist.Services.Impl
 			}
 			catch (Exception ex)
 			{
-				Logger.LogError("Uncaught error");
-				Logger.LogError(ex.ToString());
+				_HandleUncaughtError(ex);
 				return;
 			}
 

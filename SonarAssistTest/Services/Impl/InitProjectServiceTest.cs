@@ -23,7 +23,14 @@ namespace SonarAssistTest.Services.Impl
 				{ "name", "Bot-Test" }
 			};
 
-			await service.ExecuteAsync(parameters);
+			try
+			{
+				await service.ExecuteAsync(parameters);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.ToString());
+			}
 
 			Assert.AreEqual(ServiceStatus.OK, service.Status);
 		}
