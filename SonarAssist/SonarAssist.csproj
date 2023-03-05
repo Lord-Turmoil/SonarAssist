@@ -13,16 +13,14 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="dotnetCampus.Configurations" Version="1.6.10" />
     <PackageReference Include="DryIoc" Version="5.3.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3-beta1" />
+    <PackageReference Include="RestSharp" Version="108.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Services\Responses\" />
-    <Folder Include="Services\Requests\" />
   </ItemGroup>
 
 </Project>

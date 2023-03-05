@@ -22,7 +22,7 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Services\Requests\" />
+    <Folder Include="Services\Requests\Impl\" />
     <Folder Include="Services\Responses\" />
   </ItemGroup>
 

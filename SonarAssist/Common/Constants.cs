@@ -11,9 +11,22 @@ namespace SonarAssist.Common
 	/// </summary>
 	public class Constants
 	{
-		public static readonly string CONFIG_FILENAME = @"config\config.coin";
-		public static readonly string DEFAULT_PROFILE = "Sonar way";
+		public static readonly string GLOBAL_CONFIG_FILENAME = @"config\config.json";
+		
+		public static readonly string GLOBAL_LOG_PATH = @"logs\";
 
-		internal static readonly string DEFAULT_SERVER = "http://www.tonys-studio.top:9000";
+
+		public static readonly string LOCAL_PATH = @"sonar-assist\";
+
+		public static readonly string LOCAL_SRC_PATH = @"src\";
+
+		public static readonly string LOCAL_OUT_PATH = LOCAL_PATH + @"output\";
+
+		public static readonly string LOCAL_CONFIG_FILENAME = LOCAL_PATH + "sonar-assist.json";
+
+		public static readonly string SONAR_FILENAME = "sonar-project.properties";
+
+		
+		public static readonly string DEFAULT_PROFILE = "Sonar way";
 	}
 }

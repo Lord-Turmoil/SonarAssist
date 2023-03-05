@@ -12,6 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{E8CB84F6-A
 		Manual.md = Manual.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Work", "Work", "{6DCEC2A5-E3B6-4ED7-BEE2-BBC263EFEA5A}"
+	ProjectSection(SolutionItems) = preProject
+		Work\config\config-backup.json = Work\config\config-backup.json
+		Work\config\config.json = Work\config\config.json
+		Work\empty.json = Work\empty.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
