@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Manual.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="dotnetCampus.Configurations" Version="1.6.10" />
+    <PackageReference Include="DryIoc" Version="5.3.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3-beta1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Services\Responses\" />
+    <Folder Include="Services\Requests\" />
+  </ItemGroup>
+
+</Project>
