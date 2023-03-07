@@ -2,6 +2,7 @@
 using SonarAssist.Common;
 using SonarAssist.Common.Config;
 using SonarAssist.Common.Exceptions;
+using SonarAssist.Extensions;
 using SonarAssist.Services.Requests.Impl;
 using SonarAssist.Services.Responses;
 using SonarAssist.Services.Responses.Dtos;
@@ -21,7 +22,6 @@ namespace SonarAssist.Services.Impl
 	public class CreateProjectService : SonarService
 	{
 		private string _root = "";
-		private LocalConfiguration _config;
 
 		public override async Task ExecuteAsync(Dictionary<string, string>? parameters = null)
 		{
@@ -33,7 +33,7 @@ namespace SonarAssist.Services.Impl
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
 
-			if (!_CheckPrerequisites())
+			if (!SonarUtils.IsInitialized())
 			{
 				Status = ServiceStatus.Error;
 				throw new ServiceErrorException("Project not initialized");
@@ -71,22 +71,15 @@ namespace SonarAssist.Services.Impl
 			return parameters.TryGetValue("root", out _root);
 		}
 
-		private bool _CheckPrerequisites()
-		{
-			_config = ConfigManager.Load<LocalConfiguration>(Constants.LOCAL_CONFIG_FILENAME);
-			if (_config == null)
-				return false;
-			if (string.IsNullOrEmpty(_config.key))
-				return false;
-			return true;
-		}
-
 		private CreateProjectRequest _BuildRequest()
 		{
 			CreateProjectRequest request = new CreateProjectRequest();
-			request.AddParameter("project", _config.key);
-			request.AddParameter("name", _config.name);
+			var config = SonarUtils.GetLocalConfiguration();
+
+			request.AddParameter("project", config.key);
+			request.AddParameter("name", config.name);
 			request.AddParameter("visibility", "public");
+			
 			return request;
 		}
 

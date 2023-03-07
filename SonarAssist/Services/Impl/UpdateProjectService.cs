@@ -2,6 +2,7 @@
 using SonarAssist.Common;
 using SonarAssist.Common.Config;
 using SonarAssist.Common.Exceptions;
+using SonarAssist.Extensions;
 using SonarAssist.Services.Requests.Impl;
 using SonarAssist.Services.Responses;
 using SonarAssist.Services.Responses.Dtos;
@@ -19,8 +20,6 @@ namespace SonarAssist.Services.Impl
 	public class UpdateProjectService : SonarService
 	{
 		private string _root = "";
-		private string _profile = "";
-		private LocalConfiguration _config;
 
 		public override async Task ExecuteAsync(Dictionary<string, string>? parameters = null)
 		{
@@ -32,7 +31,7 @@ namespace SonarAssist.Services.Impl
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
 
-			if (!_CheckPrerequisites())
+			if (!SonarUtils.IsInitialized())
 			{
 				Status = ServiceStatus.Error;
 				throw new ServiceErrorException("Project not initialized");
@@ -62,19 +61,9 @@ namespace SonarAssist.Services.Impl
 		private UpdateProjectRequest _BuildRequest()
 		{
 			UpdateProjectRequest request = new UpdateProjectRequest();
-			request.AddParameter("project", _config.key);
+			var config = SonarUtils.GetLocalConfiguration();
+			request.AddParameter("project", config.key);
 			return request;
-		}
-
-		private bool _CheckPrerequisites()
-		{
-			_config = ConfigManager.Load<LocalConfiguration>(Constants.LOCAL_CONFIG_FILENAME);
-			if (_config == null)
-				return false;
-			if (string.IsNullOrEmpty(_config.key))
-				return false;
-
-			return true;
 		}
 
 		private bool _ParseParameters(Dictionary<string, string> parameters)

@@ -22,7 +22,7 @@ namespace SonarAssist.Services.Impl
 				return;
 			}
 
-				var config = Global.Container.Resolve<GlobalConfiguration>();
+			var config = Global.Container.Resolve<GlobalConfiguration>();
 			if (parameters.TryGetValue("s", out string? value))
 				config.Server = value;
 			if (parameters.TryGetValue("t", out value))

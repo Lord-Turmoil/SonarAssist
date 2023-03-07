@@ -15,6 +15,8 @@ namespace SonarAssist.Commands
 	{
 		private Command() { }
 
+		public const int BadCommand = -255;
+
 		public static int Execute(params string[]? args)
 		{
 			Process? process = Process.Start(new ProcessStartInfo()
@@ -30,7 +32,7 @@ namespace SonarAssist.Commands
 			if (process == null)
 			{
 				Logger.LogError("Command not found.");
-				return -1;
+				return BadCommand;
 			}
 
 			process.WaitForExit();

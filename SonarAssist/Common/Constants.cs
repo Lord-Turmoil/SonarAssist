@@ -11,22 +11,26 @@ namespace SonarAssist.Common
 	/// </summary>
 	public class Constants
 	{
-		public static readonly string GLOBAL_CONFIG_FILENAME = @"config\config.json";
+		private Constants() { }
+
+		public const string CURRENT_PATH = @".\";
+
+		public const string GLOBAL_CONFIG_FILENAME = @"config\config.json";
 		
-		public static readonly string GLOBAL_LOG_PATH = @"logs\";
+		public const string GLOBAL_LOG_PATH = @"logs\";
 
 
-		public static readonly string LOCAL_PATH = @"sonar-assist\";
+		public const string LOCAL_PATH = @"sonar-assist\";
 
-		public static readonly string LOCAL_SRC_PATH = @"src\";
+		public const string LOCAL_SRC_PATH = @"src\";
 
-		public static readonly string LOCAL_OUT_PATH = LOCAL_PATH + @"output\";
+		public const string LOCAL_OUT_PATH = LOCAL_PATH + @"output\";
 
-		public static readonly string LOCAL_CONFIG_FILENAME = LOCAL_PATH + "sonar-assist.json";
+		public const string LOCAL_CONFIG_FILENAME = LOCAL_PATH + "sonar-assist.json";
 
-		public static readonly string SONAR_FILENAME = "sonar-project.properties";
+		public const string SONAR_FILENAME = "sonar-project.properties";
 
 		
-		public static readonly string DEFAULT_PROFILE = "Sonar way";
+		public const string DEFAULT_PROFILE = "Sonar way";
 	}
 }
