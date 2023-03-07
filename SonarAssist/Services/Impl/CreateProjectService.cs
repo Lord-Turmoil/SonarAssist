@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace SonarAssist.Services.Impl
 {
-	/// <summary>
-	/// This will create a project on SonarQube server. The status of
-	/// this service is special, it is YES or NO, both are acceptable,
-	/// but NO indicates that the project is already created.
-	/// </summary>
-	public class CreateProjectService : SonarService
+    /// <summary>
+    /// This will create a project on SonarQube server. The status of
+    /// this service is special, it is YES or NO, both are acceptable,
+    /// but NO indicates that the project is already created.
+    /// </summary>
+    public class CreateProjectService : SonarService
 	{
 		private string _root = "";
 
@@ -28,7 +28,7 @@ namespace SonarAssist.Services.Impl
 			if (parameters == null || !_ParseParameters(parameters))
 			{
 				Status = ServiceStatus.Error;
-				throw new ArgumentException(ExceptionMessage.BadArguments);
+				throw new ArgumentException(Messages.BadArguments);
 			}
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
@@ -36,7 +36,7 @@ namespace SonarAssist.Services.Impl
 			if (!SonarUtils.IsInitialized())
 			{
 				Status = ServiceStatus.Error;
-				throw new ServiceErrorException(ExceptionMessage.NotInitialized);
+				throw new ServiceErrorException(Messages.NotInitialized);
 			}
 
 			CreateProjectRequest request = _BuildRequest();

@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace SonarAssist.Services.Impl
 {
-	/// <summary>
-	/// Update project quality profile.
-	/// </summary>
-	public class UpdateProjectService : SonarService
+    /// <summary>
+    /// Update project quality profile.
+    /// </summary>
+    public class UpdateProjectService : SonarService
 	{
 		private string _root = "";
 
@@ -26,7 +26,7 @@ namespace SonarAssist.Services.Impl
 			if (parameters == null || !_ParseParameters(parameters))
 			{
 				Status = ServiceStatus.Error;
-				throw new ArgumentException(ExceptionMessage.BadArguments);
+				throw new ArgumentException(Messages.BadArguments);
 			}
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
@@ -34,7 +34,7 @@ namespace SonarAssist.Services.Impl
 			if (!SonarUtils.IsInitialized())
 			{
 				Status = ServiceStatus.Error;
-				throw new ServiceErrorException(ExceptionMessage.NotInitialized);
+				throw new ServiceErrorException(Messages.NotInitialized);
 			}
 
 			UpdateProjectRequest request = _BuildRequest();

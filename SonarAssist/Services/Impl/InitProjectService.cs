@@ -12,10 +12,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SonarAssist.Services.Impl
 {
-	/// <summary>
-	/// Initialize a single project.
-	/// </summary>
-	public class InitProjectService : SonarService
+    /// <summary>
+    /// Initialize a single project.
+    /// </summary>
+    public class InitProjectService : SonarService
 	{
 		private bool _force = false;
 		private string _root = "";
@@ -38,7 +38,7 @@ namespace SonarAssist.Services.Impl
 			if (parameters == null || !_ParseParameters(parameters))
 			{
 				Status = ServiceStatus.Error;
-				throw new ArgumentException(ExceptionMessage.BadArguments);
+				throw new ArgumentException(Messages.BadArguments);
 			}
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
