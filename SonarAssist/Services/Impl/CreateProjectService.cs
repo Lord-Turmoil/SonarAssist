@@ -22,6 +22,7 @@ namespace SonarAssist.Services.Impl
     public class CreateProjectService : SonarService
 	{
 		private string _root = "";
+		private LocalConfiguration _config;
 
 		public override async Task ExecuteAsync(Dictionary<string, string>? parameters = null)
 		{
@@ -38,6 +39,8 @@ namespace SonarAssist.Services.Impl
 				Status = ServiceStatus.Error;
 				throw new ServiceErrorException(Messages.NotInitialized);
 			}
+
+			_config = SonarUtils.GetLocalConfiguration();
 
 			CreateProjectRequest request = _BuildRequest();
 			var client = Global.Container.Resolve<SonarClient>();
@@ -64,6 +67,10 @@ namespace SonarAssist.Services.Impl
 
 			_LogResponse(response);
 			Status = ServiceStatus.YES;
+
+			Logger.LogMessage("New project created.");
+			Logger.LogMessage($" Project Name: {_config.name}");
+			Logger.LogMessage($"  Project Key: {_config.key}");
 		}
 
 		private bool _ParseParameters(Dictionary<string, string> parameters)
@@ -74,10 +81,8 @@ namespace SonarAssist.Services.Impl
 		private CreateProjectRequest _BuildRequest()
 		{
 			CreateProjectRequest request = new CreateProjectRequest();
-			var config = SonarUtils.GetLocalConfiguration();
-
-			request.AddParameter("project", config.key);
-			request.AddParameter("name", config.name);
+			request.AddParameter("project", _config.key);
+			request.AddParameter("name", _config.name);
 			request.AddParameter("visibility", "public");
 			
 			return request;
@@ -86,7 +91,8 @@ namespace SonarAssist.Services.Impl
 		private void _LogResponse(SonarResponse<CreateProjectDto> response)
 		{
 			string filename = Path.Combine(
-				Path.GetFullPath(Constants.GLOBAL_LOG_PATH),
+				Path.GetFullPath(Global.StartupPath),
+				Constants.GLOBAL_LOG_PATH,
 				"CreateProject",
 				DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-ms") + ".json");
 

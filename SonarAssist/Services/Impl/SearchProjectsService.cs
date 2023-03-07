@@ -100,7 +100,8 @@ namespace SonarAssist.Services.Impl
 		private void _LogResponse()
 		{
 			string filename = Path.Combine(
-				Path.GetFullPath(Constants.GLOBAL_LOG_PATH),
+				Path.GetFullPath(Global.StartupPath),
+				Constants.GLOBAL_LOG_PATH,
 				"SearchProject",
 				DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-ms") + ".json");
 

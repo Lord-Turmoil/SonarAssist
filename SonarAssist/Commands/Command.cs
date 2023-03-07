@@ -34,13 +34,13 @@ namespace SonarAssist.Commands
 				Logger.LogError("Command not found.");
 				return BadCommand;
 			}
-
-			process.WaitForExit();
 			if (options.ShowStandardOutput)
 			{
-				string content = process.StandardOutput.ReadToEnd();
-				if (!string.IsNullOrEmpty(content))
-					Logger.Log(content);
+				var output = process.StandardOutput;
+				while (!output.EndOfStream)
+				{
+					Logger.Log(output.ReadLine());
+				}
 			}
 			if (options.ShowStandardError)
 			{
@@ -48,6 +48,8 @@ namespace SonarAssist.Commands
 				if (!string.IsNullOrEmpty(content))
 					Logger.LogError(content);
 			}
+
+			process.WaitForExit();
 			int ret = process.ExitCode;
 			process.Close();
 

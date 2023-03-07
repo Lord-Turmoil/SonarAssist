@@ -29,5 +29,14 @@ namespace SonarAssist.Common
 			var b = Global.Container.Resolve<Counter>();
 			Assert.AreEqual(1, Counter.Count, "Count error");
 		}
+
+		[TestMethod]
+		public void StartupPathChange()
+		{
+			string path = Directory.GetCurrentDirectory();
+			Console.WriteLine(Global.StartupPath);
+			Directory.SetCurrentDirectory(Path.GetFullPath(@"E:\"));
+			Assert.AreEqual(path, Global.StartupPath, "Wrong startup path");
+		}
 	}
 }

@@ -18,6 +18,11 @@ namespace SonarAssist.Common
 
         public const string ServiceError = "Service error encountered";
 
+        public const string UnexpectedError = "Unexpected error encountered";
+
+        public const string CompilationFailed = "Java compilation failed";
+        public const string ScanFailed = "Failed to scan project";
+
         // Fine messages.
         
     }

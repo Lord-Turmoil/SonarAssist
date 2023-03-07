@@ -13,7 +13,7 @@ namespace SonarAssistTest.Commands
 		[TestMethod]
 		public void ExecuteCommand()
 		{
-			Command.Execute("javac");
+			Command.Execute(new CommandOptions(), "dir");
 		}
 	}
 }

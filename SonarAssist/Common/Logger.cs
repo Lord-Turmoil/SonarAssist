@@ -13,19 +13,22 @@ namespace SonarAssist.Common
 	{
 		private Logger() { }
 
-		public static void Log(string message, ConsoleColor color = ConsoleColor.White)
+		public static void Log(string? message, ConsoleColor color = ConsoleColor.White)
 		{
-			var old = Console.ForegroundColor;
-			Console.WriteLine(message);
-			Console.ForegroundColor = old;
-		}
+			if (message != null)
+			{
+				var old = Console.ForegroundColor;
+				Console.WriteLine(message);
+				Console.ForegroundColor = old;
+			}
+			}
 
-		public static void LogError(string message)
+			public static void LogError(string? message)
 		{
 			Log(message, ConsoleColor.Red);
 		}
 
-		public static void LogMessage(string message)
+		public static void LogMessage(string? message)
 		{
 			Log(message, ConsoleColor.DarkYellow);
 		}
@@ -44,7 +47,7 @@ namespace SonarAssist.Common
 				throw new ArgumentException("filename");
 			}
 
-			Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+			Directory.CreateDirectory(dir);
 			if (dto == null)
 				File.WriteAllText(fullPath, "// No Content");
 			else

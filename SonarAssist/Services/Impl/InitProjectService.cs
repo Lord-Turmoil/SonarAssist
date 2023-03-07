@@ -93,6 +93,12 @@ namespace SonarAssist.Services.Impl
 			string? value;
 			if (parameters.TryGetValue("name", out value))
 				_config.name = value;
+			else
+			{
+				_config.name = Path.GetDirectoryName(Directory.GetCurrentDirectory())
+					?? Constants.DEFAULT_PROJECT_NAME;
+			}
+
 			if (parameters.TryGetValue("src", out value))
 				_config.src = value;
 			if (parameters.TryGetValue("output", out value))
