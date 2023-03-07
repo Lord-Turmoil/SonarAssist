@@ -17,7 +17,7 @@ namespace SonarAssist.Commands
 
 		public const int BadCommand = -255;
 
-		public static int Execute(params string[]? args)
+		public static int Execute(CommandOptions options, params string[]? args)
 		{
 			Process? process = Process.Start(new ProcessStartInfo()
 			{
@@ -36,12 +36,18 @@ namespace SonarAssist.Commands
 			}
 
 			process.WaitForExit();
-			string content = process.StandardOutput.ReadToEnd();
-			if (!string.IsNullOrEmpty(content))
-				Logger.Log(content);
-			content = process.StandardError.ReadToEnd();
-			if (!string.IsNullOrEmpty(content))
-				Logger.LogError(content);
+			if (options.ShowStandardOutput)
+			{
+				string content = process.StandardOutput.ReadToEnd();
+				if (!string.IsNullOrEmpty(content))
+					Logger.Log(content);
+			}
+			if (options.ShowStandardError)
+			{
+				string content = process.StandardError.ReadToEnd();
+				if (!string.IsNullOrEmpty(content))
+					Logger.LogError(content);
+			}
 			int ret = process.ExitCode;
 			process.Close();
 
@@ -63,5 +69,11 @@ namespace SonarAssist.Commands
 
 			return builder.ToString();
 		}
+	}
+
+	public class CommandOptions
+	{
+		public bool ShowStandardOutput { get; set; } = true;
+		public bool ShowStandardError { get; set;} = true;
 	}
 }
