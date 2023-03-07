@@ -26,7 +26,7 @@ namespace SonarAssist.Services.Impl
 			if (parameters == null || !_ParseParameters(parameters))
 			{
 				Status = ServiceStatus.Error;
-				throw new ArgumentException("Arguments illegal!");
+				throw new ArgumentException(ExceptionMessage.BadArguments);
 			}
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
@@ -34,7 +34,7 @@ namespace SonarAssist.Services.Impl
 			if (!SonarUtils.IsInitialized())
 			{
 				Status = ServiceStatus.Error;
-				throw new ServiceErrorException("Project not initialized");
+				throw new ServiceErrorException(ExceptionMessage.NotInitialized);
 			}
 
 			UpdateProjectRequest request = _BuildRequest();

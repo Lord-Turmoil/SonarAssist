@@ -38,7 +38,7 @@ namespace SonarAssist.Services.Impl
 			if (parameters == null || !_ParseParameters(parameters))
 			{
 				Status = ServiceStatus.Error;
-				throw new ArgumentException("Arguments illegal!");
+				throw new ArgumentException(ExceptionMessage.BadArguments);
 			}
 
 			Directory.SetCurrentDirectory(Path.GetFullPath(_root));
